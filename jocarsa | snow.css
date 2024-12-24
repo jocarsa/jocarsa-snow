@@ -1,7 +1,7 @@
-/* wysiwyg_styles.css */
+/* jocarsa | snow - WYSIWYG Styles */
 
 /* General editor container */
-.wysiwyg-editor-container {
+.jocarsa-snow-editor-container {
     border: 1px solid #ddd;
     border-radius: 8px;
     margin: 10px 0;
@@ -10,7 +10,7 @@
 }
 
 /* Toolbar styles */
-.wysiwyg-toolbar {
+.jocarsa-snow-toolbar {
     background-color: wheat;
     padding: 5px;
     border-bottom: 1px solid #ddd;
@@ -19,7 +19,7 @@
     align-items: center;
 }
 
-.wysiwyg-toolbar button {
+.jocarsa-snow-toolbar button {
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -30,29 +30,29 @@
     color: black;
 }
 
-.wysiwyg-toolbar button:hover {
+.jocarsa-snow-toolbar button:hover {
     background-color: #e0e0e0;
     box-shadow: 0 0 5px rgba(51, 102, 204, 0.5);
 }
 
-.wysiwyg-toolbar button:active {
+.jocarsa-snow-toolbar button:active {
     background-color: #d9d9d9;
 }
 
-.wysiwyg-toolbar button[data-command="bold"] {
+.jocarsa-snow-toolbar button[data-command="bold"] {
     font-weight: bold;
 }
 
-.wysiwyg-toolbar button[data-command="italic"] {
+.jocarsa-snow-toolbar button[data-command="italic"] {
     font-style: italic;
 }
 
-.wysiwyg-toolbar button[data-command="underline"] {
+.jocarsa-snow-toolbar button[data-command="underline"] {
     text-decoration: underline;
 }
 
 /* Editor styles */
-.wysiwyg-editor {
+.jocarsa-snow-editor {
     min-height: 200px;
     padding: 10px;
     font-family: Arial, sans-serif;
@@ -65,14 +65,14 @@
     border-radius: 0 0 8px 8px;
 }
 
-.wysiwyg-editor:focus {
+.jocarsa-snow-editor:focus {
     background-color: #ffffff;
     box-shadow: 0 0 5px rgba(51, 102, 204, 0.5);
     border: 1px solid #3366cc;
 }
 
 /* Dropdown and input styles */
-.wysiwyg-toolbar select {
+.jocarsa-snow-toolbar select {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px;
@@ -82,11 +82,11 @@
     color: black;
 }
 
-.wysiwyg-toolbar select:hover {
+.jocarsa-snow-toolbar select:hover {
     border-color: #888;
 }
 
-.wysiwyg-toolbar input[type="color"] {
+.jocarsa-snow-toolbar input[type="color"] {
     border: none;
     padding: 3px;
     cursor: pointer;
@@ -95,7 +95,7 @@
     background-color: transparent;
 }
 
-.wysiwyg-toolbar input[type="color"]::-webkit-color-swatch {
+.jocarsa-snow-toolbar input[type="color"]::-webkit-color-swatch {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
