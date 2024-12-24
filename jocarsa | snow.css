@@ -1,0 +1,102 @@
+/* wysiwyg_styles.css */
+
+/* General editor container */
+.wysiwyg-editor-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Toolbar styles */
+.wysiwyg-toolbar {
+    background-color: wheat;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.wysiwyg-toolbar button {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: black;
+}
+
+.wysiwyg-toolbar button:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 0 5px rgba(51, 102, 204, 0.5);
+}
+
+.wysiwyg-toolbar button:active {
+    background-color: #d9d9d9;
+}
+
+.wysiwyg-toolbar button[data-command="bold"] {
+    font-weight: bold;
+}
+
+.wysiwyg-toolbar button[data-command="italic"] {
+    font-style: italic;
+}
+
+.wysiwyg-toolbar button[data-command="underline"] {
+    text-decoration: underline;
+}
+
+/* Editor styles */
+.wysiwyg-editor {
+    min-height: 200px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #202122;
+    background-color: #f9f9f9;
+    border: none;
+    outline: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.wysiwyg-editor:focus {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(51, 102, 204, 0.5);
+    border: 1px solid #3366cc;
+}
+
+/* Dropdown and input styles */
+.wysiwyg-toolbar select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    background-color: #fff;
+    color: black;
+}
+
+.wysiwyg-toolbar select:hover {
+    border-color: #888;
+}
+
+.wysiwyg-toolbar input[type="color"] {
+    border: none;
+    padding: 3px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+}
+
+.wysiwyg-toolbar input[type="color"]::-webkit-color-swatch {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
