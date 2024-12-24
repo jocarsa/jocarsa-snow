@@ -17,11 +17,11 @@ const jocarsaSnow = {
 
         // Create editor container
         const editorContainer = document.createElement('div');
-        editorContainer.className = 'wysiwyg-editor-container';
+        editorContainer.className = 'jocarsa-snow-editor-container';
 
         // Create toolbar
         const toolbar = document.createElement('div');
-        toolbar.className = 'wysiwyg-toolbar';
+        toolbar.className = 'jocarsa-snow-toolbar';
         toolbar.innerHTML = `
             <button type="button" data-command="bold"><b>B</b></button>
             <button type="button" data-command="italic"><i>I</i></button>
@@ -61,7 +61,7 @@ const jocarsaSnow = {
 
         // Create contenteditable div
         const editor = document.createElement('div');
-        editor.className = 'wysiwyg-editor';
+        editor.className = 'jocarsa-snow-editor';
         editor.contentEditable = true;
         editor.innerHTML = textarea.value;
 
@@ -75,7 +75,7 @@ const jocarsaSnow = {
         // Toolbar button event listeners
         toolbar.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent form submission
+                e.preventDefault();
                 const command = button.getAttribute('data-command');
                 const value = button.getAttribute('data-value');
                 const promptText = button.getAttribute('data-prompt');
@@ -98,30 +98,26 @@ const jocarsaSnow = {
         });
 
         // Font family selector
-        const fontFamilySelector = toolbar.querySelector('#fontFamilySelector');
-        fontFamilySelector.addEventListener('change', () => {
-            document.execCommand('fontName', false, fontFamilySelector.value);
+        toolbar.querySelector('#fontFamilySelector').addEventListener('change', (e) => {
+            document.execCommand('fontName', false, e.target.value);
             textarea.value = editor.innerHTML;
         });
 
         // Font size selector
-        const fontSizeSelector = toolbar.querySelector('#fontSizeSelector');
-        fontSizeSelector.addEventListener('change', () => {
-            document.execCommand('fontSize', false, fontSizeSelector.value);
+        toolbar.querySelector('#fontSizeSelector').addEventListener('change', (e) => {
+            document.execCommand('fontSize', false, e.target.value);
             textarea.value = editor.innerHTML;
         });
 
         // Text color picker
-        const textColorPicker = toolbar.querySelector('#textColorPicker');
-        textColorPicker.addEventListener('input', () => {
-            document.execCommand('foreColor', false, textColorPicker.value);
+        toolbar.querySelector('#textColorPicker').addEventListener('input', (e) => {
+            document.execCommand('foreColor', false, e.target.value);
             textarea.value = editor.innerHTML;
         });
 
         // Background color picker
-        const bgColorPicker = toolbar.querySelector('#bgColorPicker');
-        bgColorPicker.addEventListener('input', () => {
-            document.execCommand('backColor', false, bgColorPicker.value);
+        toolbar.querySelector('#bgColorPicker').addEventListener('input', (e) => {
+            document.execCommand('backColor', false, e.target.value);
             textarea.value = editor.innerHTML;
         });
 

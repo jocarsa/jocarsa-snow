@@ -39,18 +39,6 @@
     background-color: #d9d9d9;
 }
 
-.jocarsa-snow-toolbar button[data-command="bold"] {
-    font-weight: bold;
-}
-
-.jocarsa-snow-toolbar button[data-command="italic"] {
-    font-style: italic;
-}
-
-.jocarsa-snow-toolbar button[data-command="underline"] {
-    text-decoration: underline;
-}
-
 /* Editor styles */
 .jocarsa-snow-editor {
     min-height: 200px;
