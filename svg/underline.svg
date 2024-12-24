@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (9b9bdc1480, 2023-11-25, custom)"
+   sodipodi:docname="underline.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showguides="true"
+     inkscape:zoom="23.033894"
+     inkscape:cx="15.585727"
+     inkscape:cy="16.236942"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="955"
+     inkscape:window-y="1112"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="0.49108567,7.5277372"
+       orientation="1,0"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="7.9832533,6.8010958"
+       orientation="1,0"
+       id="guide2"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="6.4440361,7.9727387"
+       orientation="0,-1"
+       id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="5.0081992,0.46043985"
+       orientation="0,-1"
+       id="guide4"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="font-size:3.175px;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;stroke-width:1.71197;stroke-linecap:round;stroke-linejoin:round"
+       d="m 4.0874209,7.2910381 q -0.8946933,0 -1.4334333,-0.3463328 Q 2.1152476,6.5983723 1.8651183,6.0019102 1.6246094,5.4054481 1.6246094,4.6646806 V 0.47982533 H 2.3749973 V 4.5780974 q 0,1.0678596 0.4713975,1.5584978 0.4810178,0.4810179 1.2410261,0.4810179 0.7696284,0 1.2410259,-0.4906383 Q 5.8094647,5.6363366 5.8094647,4.5780974 V 0.47982533 H 6.5598525 V 4.6646806 q 0,0.7407675 -0.2501292,1.3372296 -0.2405089,0.5964621 -0.779249,0.9427951 -0.53874,0.3463328 -1.4430534,0.3463328 z"
+       id="text4"
+       aria-label="U" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.564999;stroke-linecap:round;stroke-linejoin:round"
+       id="rect4"
+       width="5.0861526"
+       height="0.39405298"
+       x="1.6371514"
+       y="7.6121879"
+       ry="0.19702649" />
+  </g>
+</svg>

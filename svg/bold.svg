@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666666"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.1 (9b9bdc1480, 2023-11-25, custom)"
+   sodipodi:docname="bold.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showguides="true"
+     inkscape:zoom="23.033894"
+     inkscape:cx="14.977927"
+     inkscape:cy="16.236942"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="955"
+     inkscape:window-y="1112"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="0.49108567,7.5277372"
+       orientation="1,0"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="7.9832533,6.8010958"
+       orientation="1,0"
+       id="guide2"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="6.4440361,7.9727387"
+       orientation="0,-1"
+       id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="5.0081992,0.46043985"
+       orientation="0,-1"
+       id="guide4"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="font-weight:bold;font-size:10.554px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';stroke-width:1.87811;stroke-linecap:round;stroke-linejoin:round"
+       d="m 4.0476877,7.9944652 q -0.36939,0 -0.749334,-0.021108 -0.379944,-0.010554 -0.770442,-0.063324 -0.379944,-0.042216 -0.770442,-0.126648 V 0.71220529 q 0.327174,-0.073878 0.696564,-0.116094 0.36939,-0.042216 0.73878,-0.063324 0.379944,-0.021108 0.707118,-0.021108 0.89709,0 1.604208,0.18997199 0.707118,0.189972 1.118724,0.63324001 0.411606,0.432714 0.411606,1.203156 0,0.464376 -0.232188,0.833766 -0.232188,0.358836 -0.675456,0.591024 0.68601,0.242742 0.970968,0.68601 0.295512,0.443268 0.295512,1.0765079 0,1.129278 -0.84432,1.699194 -0.833766,0.569916 -2.501298,0.569916 z m 0.031662,-1.182048 q 0.538254,0 0.94986,-0.094986 0.411606,-0.10554 0.654348,-0.337728 0.242742,-0.242742 0.242742,-0.675456 0,-0.5910239 -0.42216,-0.8232119 -0.42216,-0.232188 -1.192602,-0.232188 h -1.139832 v 2.1107999 q 0.168864,0.021108 0.401052,0.042216 0.242742,0.010554 0.506592,0.010554 z M 3.1717057,3.5406773 h 0.928752 q 0.517146,0 0.854874,-0.084432 0.337728,-0.094986 0.496038,-0.306066 0.168864,-0.21108 0.168864,-0.548808 0,-0.506592 -0.401052,-0.707118 -0.390498,-0.21108 -1.118724,-0.21108 -0.242742,0 -0.496038,0.010554 -0.253296,0.010554 -0.432714,0.031662 z"
+       id="text4"
+       aria-label="B" />
+  </g>
+</svg>

@@ -23,20 +23,20 @@ const jocarsaSnow = {
         const toolbar = document.createElement('div');
         toolbar.className = 'jocarsa-snow-toolbar';
         toolbar.innerHTML = `
-            <button type="button" data-command="bold"><b>B</b></button>
-            <button type="button" data-command="italic"><i>I</i></button>
-            <button type="button" data-command="underline"><u>U</u></button>
-            <button type="button" data-command="strikeThrough">S</button>
-            <button type="button" data-command="justifyLeft">Left</button>
-            <button type="button" data-command="justifyCenter">Center</button>
-            <button type="button" data-command="justifyRight">Right</button>
-            <button type="button" data-command="justifyFull">Justify</button>
-            <button type="button" data-command="insertOrderedList">OL</button>
-            <button type="button" data-command="insertUnorderedList">UL</button>
-            <button type="button" data-command="createLink" data-prompt="Enter URL:">Link</button>
-            <button type="button" data-command="unlink">Unlink</button>
-            <button type="button" data-command="insertImage" data-prompt="Enter image URL:">Image</button>
-            <button type="button" data-command="insertHTML" data-html="<table border='1'><tr><td>Cell 1</td><td>Cell 2</td></tr></table>">Table</button>
+            <button type="button" data-command="bold"><img src="svg/bold.svg" alt="Negrita"></button>
+            <button type="button" data-command="italic"><img src="svg/italic.svg" alt="Negrita"></button>
+            <button type="button" data-command="underline"><img src="svg/underline.svg" alt="Negrita"></button>
+            <button type="button" data-command="strikeThrough"><img src="svg/strike.svg" alt="Negrita"></button>
+            <button type="button" data-command="justifyLeft"><img src="svg/left.svg" alt="Negrita"></button>
+            <button type="button" data-command="justifyCenter"><img src="svg/center.svg" alt="Negrita"></button>
+            <button type="button" data-command="justifyRight"><img src="svg/right.svg" alt="Negrita"></button>
+            <button type="button" data-command="justifyFull"><img src="svg/justify.svg" alt="Negrita"></button>
+            <button type="button" data-command="insertOrderedList"><img src="svg/ul.svg" alt="Negrita"></button>
+            <button type="button" data-command="insertUnorderedList"><img src="svg/ol.svg" alt="Negrita"></button>
+            <button type="button" data-command="createLink" data-prompt="Enter URL:"><img src="svg/link.svg" alt="Negrita"></button>
+            <button type="button" data-command="unlink"><img src="svg/unlink.svg" alt="Negrita"></button>
+            <button type="button" data-command="insertImage" data-prompt="Enter image URL:"><img src="svg/image.svg" alt="Negrita"></button>
+            <button type="button" data-command="insertHTML" data-html="<table border='1'><tr><td>Cell 1</td><td>Cell 2</td></tr></table>"><img src="svg/table.svg" alt="Negrita"></button>
             <label> 
                 <select id="fontFamilySelector">
                     <option value="serif">Serif</option>
