@@ -1,4 +1,4 @@
-/* jocarsa | snow - WYSIWYG Styles */
+/* jocarsa | snow - Enhanced WYSIWYG Styles */
 
 /* General editor container */
 .jocarsa-snow-editor-container {
@@ -7,16 +7,19 @@
     margin: 10px 0;
     background-color: #f9f9f9; /* Snow theme background */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 500px;
 }
 
 /* Toolbar styles */
 .jocarsa-snow-toolbar {
     background-color: #ffffff; /* Snow theme for toolbar */
-    padding: 5px;
+    padding: 10px;
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     flex-wrap: wrap; /* Allows tools to wrap onto multiple rows */
-    gap: 5px;
+    gap: 3px;
     align-items: center;
 }
 
@@ -24,22 +27,33 @@
     background: #ffffff;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     font-size: 0.9em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    color: #333333;
+    color: #a2a2a2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
-
+.jocarsa-snow-toolbar select{
+	color: #a2a2a2;
+}
+.jocarsa-snow-toolbar select option{
+	color: #a2a2a2;
+}
 .jocarsa-snow-toolbar button:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 0 5px rgba(153, 153, 153, 0.5);
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 .jocarsa-snow-toolbar button:active {
-    background-color: #e6e6e6;
+    background-color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
 }
 
+/* Icon styles for buttons */
 .jocarsa-snow-toolbar button[data-command="bold"] {
     font-weight: bold;
 }
@@ -54,8 +68,8 @@
 
 /* Editor styles */
 .jocarsa-snow-editor {
-    min-height: 200px;
-    padding: 10px;
+    flex-grow: 1;
+    padding: 15px;
     font-family: Arial, sans-serif;
     font-size: 1em;
     line-height: 1.6;
@@ -64,40 +78,30 @@
     border: none;
     outline: none;
     border-radius: 0 0 8px 8px;
-}
-
-.jocarsa-snow-editor:focus {
-    background-color: #ffffff;
-    box-shadow: 0 0 5px rgba(102, 153, 204, 0.5);
-    border: 1px solid #6699cc;
+    overflow-y: auto;
+    height: calc(100% - 60px); /* Adjusts for toolbar height */
 }
 
 /* Dropdown and input styles */
-.jocarsa-snow-toolbar select {
+.jocarsa-snow-toolbar select,
+.jocarsa-snow-toolbar input[type="color"] {
     border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    padding: 5px;
+    padding: 6px;
     font-size: 0.9em;
-    cursor: pointer;
+    border-radius: 4px;
     background-color: #ffffff;
     color: #333333;
+    transition: box-shadow 0.2s, background-color 0.2s;
 }
 
-.jocarsa-snow-toolbar select:hover {
-    border-color: #cccccc;
+.jocarsa-snow-toolbar select:hover,
+.jocarsa-snow-toolbar input[type="color"]:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .jocarsa-snow-toolbar input[type="color"] {
-    border: none;
-    padding: 3px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-}
-
-.jocarsa-snow-toolbar input[type="color"]::-webkit-color-swatch {
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
+    width: 35px;
+    height: 35px;
 }
 

@@ -1,5 +1,5 @@
 /**
- * jocarsa | snow - Extended WYSIWYG Editor Library
+ * jocarsa | snow - Enhanced WYSIWYG Editor Library
  * Applies a feature-rich WYSIWYG editor to all textareas on the page.
  */
 
@@ -39,11 +39,12 @@ const jocarsaSnow = {
             <button type="button" data-command="insertHTML" data-html="<table border='1'><tr><td>Cell 1</td><td>Cell 2</td></tr></table>">Table</button>
             <label> 
                 <select id="fontFamilySelector">
-                    <option value="Arial">Arial</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Verdana">Verdana</option>
+                    <option value="serif">Serif</option>
+                    <option value="sans Serif">Sans Serif</option>
+                    <option value="monospace">Monospace</option>
+                    <option value="cursive">Cursive</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="system-ui">System UI</option>
                 </select>
             </label>
             <label>
@@ -54,6 +55,18 @@ const jocarsaSnow = {
                     <option value="7">Extra Large</option>
                 </select>
             </label>
+            <label>
+				  <select id="blockStyleSelector">
+				      <option value="p">Paragraph</option>
+				      <option value="h1">Heading 1</option>
+				      <option value="h2">Heading 2</option>
+				      <option value="h3">Heading 3</option>
+				      <option value="h4">Heading 4</option>
+				      <option value="h5">Heading 5</option>
+				      <option value="h6">Heading 6</option>
+				      <option value="pre">Preformatted</option>
+				  </select>
+			 </label>
             <label><input type="color" id="textColorPicker"></label>
             <label><input type="color" id="bgColorPicker"></label>
             <button type="button" data-command="removeFormat">Clear</button>
@@ -125,6 +138,14 @@ const jocarsaSnow = {
         editor.addEventListener('input', () => {
             textarea.value = editor.innerHTML;
         });
+        // Add event listener for block style selector
+			toolbar.querySelector('#blockStyleSelector').addEventListener('change', (e) => {
+				 const selectedValue = e.target.value;
+				 document.execCommand('formatBlock', false, selectedValue);
+
+				 // Sync editor content to textarea
+				 textarea.value = editor.innerHTML;
+			});
     }
 };
 
