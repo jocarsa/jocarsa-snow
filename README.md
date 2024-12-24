@@ -27,17 +27,27 @@ Add the following files to your project:
 
 #### HTML
 ```html
-<link rel="stylesheet" href="wysiwyg_styles.css">
-<script src="wysiwyg_editor.js" defer></script>
+<link rel="stylesheet" href="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.css">
+<script src="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.js" defer></script>
 ```
 
 #### File Structure
 ```
 project/
 ├── index.html
-├── wysiwyg_styles.css
-└── wysiwyg_editor.js
+├── jocarsa | snow.css
+└── jocarsa | snow.js
 ```
+
+### Direct Linking
+For quick integration, you can directly link the library files in your HTML without downloading:
+
+```html
+<link rel="stylesheet" href="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.css">
+<script src="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.js" defer></script>
+```
+
+This is ideal for testing or lightweight projects.
 
 ## Usage
 
@@ -59,7 +69,7 @@ To ensure the editor does not conflict with other styles or scripts, all classes
 - JavaScript Methods: Accessible via the `jocarsaSnow` object.
 
 ### Customizing Toolbar
-You can modify the toolbar buttons in the `wysiwyg_editor.js` file by editing the `toolbar.innerHTML` string.
+You can modify the toolbar buttons in the `jocarsa | snow.js` file by editing the `toolbar.innerHTML` string.
 
 Example:
 ```javascript
@@ -71,7 +81,7 @@ toolbar.innerHTML = `
 ```
 
 ### Styling
-You can customize the editor appearance by editing the `wysiwyg_styles.css` file. All styles are scoped under `.jocarsa-snow-editor-container` to avoid conflicts.
+You can customize the editor appearance by editing the `jocarsa | snow.css` file. All styles are scoped under `.jocarsa-snow-editor-container` to avoid conflicts.
 
 Example:
 ```css
@@ -89,12 +99,12 @@ Example:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jocarsa | snow Editor</title>
-    <link rel="stylesheet" href="wysiwyg_styles.css">
+    <link rel="stylesheet" href="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.css">
 </head>
 <body>
     <textarea id="editor1"></textarea>
     <textarea id="editor2">Pre-filled content</textarea>
-    <script src="wysiwyg_editor.js" defer></script>
+    <script src="https://jocarsa.github.io/jocarsa-snow/jocarsa%20%7C%20snow.js" defer></script>
 </body>
 </html>
 ```
@@ -115,4 +125,4 @@ This project is licensed under the GPL-3.0 License. See the `LICENSE` file for d
 
 ## Contact
 
-For questions or support, please contact info@jocarsa.com
+For questions or support, please contact info@jocarsa.com.
