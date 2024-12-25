@@ -14,8 +14,8 @@ const jocarsaSnow = {
 	
     createEditor: function (textarea) {
     
-    		const scriptUrl = document.currentScript ? document.currentScript.src : '';
-        const baseUrl = scriptUrl ? scriptUrl.substring(0, scriptUrl.lastIndexOf('/') + 1) : 'https://jocarsa.github.io/jocarsa-snow/svg/';
+    		
+        const baseUrl = 'https://jocarsa.github.io/jocarsa-snow/svg/';
         // Hide the textarea
         textarea.style.display = 'none';
 
@@ -27,20 +27,20 @@ const jocarsaSnow = {
         const toolbar = document.createElement('div');
         toolbar.className = 'jocarsa-snow-toolbar';
         toolbar.innerHTML = `
-            <button type="button" data-command="bold"><img src="${baseUrl}svg/bold.svg" alt="Negrita"></button>
-            <button type="button" data-command="italic"><img src="${baseUrl}svg/italic.svg" alt="Italica"></button>
-            <button type="button" data-command="underline"><img src="${baseUrl}svg/underline.svg" alt="Subrayado"></button>
-            <button type="button" data-command="strikeThrough"><img src="s${baseUrl}vg/strike.svg" alt="Tachado"></button>
-            <button type="button" data-command="justifyLeft"><img src="${baseUrl}svg/left.svg" alt="Justificar a la izquierda"></button>
-            <button type="button" data-command="justifyCenter"><img src="${baseUrl}svg/center.svg" alt="Jupstificar al centro"></button>
-            <button type="button" data-command="justifyRight"><img src="${baseUrl}svg/right.svg" alt="Justificar a la derecha"></button>
-            <button type="button" data-command="justifyFull"><img src="${baseUrl}svg/justify.svg" alt="Justificación completa"></button>
-            <button type="button" data-command="insertOrderedList"><img src="${baseUrl}svg/ul.svg" alt="Lista no ordenada"></button>
-            <button type="button" data-command="insertUnorderedList"><img src="${baseUrl}svg/ol.svg" alt="Lista ordenada"></button>
-            <button type="button" data-command="createLink" data-prompt="Enter URL:"><img src="${baseUrl}svg/link.svg" alt="Vinculo"></button>
-            <button type="button" data-command="unlink"><img src="${baseUrl}svg/unlink.svg" alt="Desvincular"></button>
-            <button type="button" data-command="insertImage" data-prompt="Enter image URL:"><img src="${baseUrl}svg/image.svg" alt="Imagen"></button>
-            <button type="button" data-command="insertHTML" data-html="<table border='1'><tr><td>Cell 1</td><td>Cell 2</td></tr></table>"><img src="${baseUrl}svg/table.svg" alt="Tabla"></button>
+            <button type="button" data-command="bold"><img src="${baseUrl}/bold.svg" alt="Negrita"></button>
+            <button type="button" data-command="italic"><img src="${baseUrl}/italic.svg" alt="Italica"></button>
+            <button type="button" data-command="underline"><img src="${baseUrl}/underline.svg" alt="Subrayado"></button>
+            <button type="button" data-command="strikeThrough"><img src="s${baseUrl}/strike.svg" alt="Tachado"></button>
+            <button type="button" data-command="justifyLeft"><img src="${baseUrl}/left.svg" alt="Justificar a la izquierda"></button>
+            <button type="button" data-command="justifyCenter"><img src="${baseUrl}/center.svg" alt="Jupstificar al centro"></button>
+            <button type="button" data-command="justifyRight"><img src="${baseUrl}/right.svg" alt="Justificar a la derecha"></button>
+            <button type="button" data-command="justifyFull"><img src="${baseUrl}/justify.svg" alt="Justificación completa"></button>
+            <button type="button" data-command="insertOrderedList"><img src="${baseUrl}/ul.svg" alt="Lista no ordenada"></button>
+            <button type="button" data-command="insertUnorderedList"><img src="${baseUrl}/ol.svg" alt="Lista ordenada"></button>
+            <button type="button" data-command="createLink" data-prompt="Enter URL:"><img src="${baseUrl}/link.svg" alt="Vinculo"></button>
+            <button type="button" data-command="unlink"><img src="${baseUrl}/unlink.svg" alt="Desvincular"></button>
+            <button type="button" data-command="insertImage" data-prompt="Enter image URL:"><img src="${baseUrl}/image.svg" alt="Imagen"></button>
+            <button type="button" data-command="insertHTML" data-html="<table border='1'><tr><td>Cell 1</td><td>Cell 2</td></tr></table>"><img src="${baseUrl}/table.svg" alt="Tabla"></button>
             <label> 
                 <select id="fontFamilySelector">
                     <option value="serif">Serif</option>
