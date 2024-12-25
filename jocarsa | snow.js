@@ -15,7 +15,7 @@ const jocarsaSnow = {
     createEditor: function (textarea) {
     
     		const scriptUrl = document.currentScript ? document.currentScript.src : '';
-        const baseUrl = scriptUrl ? scriptUrl.substring(0, scriptUrl.lastIndexOf('/') + 1) : 'svg/';
+        const baseUrl = scriptUrl ? scriptUrl.substring(0, scriptUrl.lastIndexOf('/') + 1) : 'https://jocarsa.github.io/jocarsa-snow/svg/';
         // Hide the textarea
         textarea.style.display = 'none';
 
