@@ -116,4 +116,25 @@
     width: 35px;
     height: 35px;
 }
+/* --- ADDED styles for the resizable image container --- */
+    .resizable-image-container {
+      display: inline-block;
+      position: relative;
+      /* Slight border or background to indicate the placeholder boundary (optional) */
+      border: 1px dashed #ccc;
+      margin: 2px;
+    }
+    .resizable-image-container img {
+      display: block;
+    }
+    .resizable-image-handle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      background: #ccc;
+      cursor: se-resize;
+      border: 1px solid #999;
+    }
 

@@ -1,8 +1,3 @@
-/**
- * jocarsa | snow - Enhanced WYSIWYG Editor Library
- * Applies a feature-rich WYSIWYG editor to all textareas on the page.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize WYSIWYG editors for all textareas
     document.querySelectorAll('textarea').forEach(textarea => {
@@ -80,7 +75,7 @@ const jocarsaSnow = {
         editorContainer.appendChild(toolbar);
         editorContainer.appendChild(editor);
 
-        // Insert container after textarea
+        // Insert container before textarea
         textarea.parentNode.insertBefore(editorContainer, textarea);
 
         // Toolbar button event listeners
@@ -131,14 +126,97 @@ const jocarsaSnow = {
             imageUploader.click();
         });
 
+        // --- MODIFIED IMAGE INSERT LOGIC FOR RESIZABLE PLACEHOLDER ---
         imageUploader.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     const base64String = event.target.result;
-                    document.execCommand('insertHTML', false, `<img src="${base64String}" alt="Inserted Image">`);
-                    textarea.value = editor.innerHTML;
+                    
+                    // 1) Create a temporary Image to measure its natural size
+                    const tempImg = new Image();
+                    tempImg.src = base64String;
+                    tempImg.onload = function() {
+                        const naturalWidth = tempImg.width;
+                        const naturalHeight = tempImg.height;
+                        
+                        // Choose some default display width; maintain aspect ratio
+                        // You can tweak this as you like
+                        const defaultDisplayWidth = Math.min(naturalWidth, 300);
+                        const ratio = naturalHeight / naturalWidth;
+                        const defaultDisplayHeight = defaultDisplayWidth * ratio;
+                        
+                        // 2) Insert a container (instead of a bare <img>) with a resize handle
+                        const resizableHTML = `
+                          <div class="resizable-image-container" contenteditable="false">
+                            <img 
+                              src="${base64String}" 
+                              alt="Inserted Image"
+                              style="width: ${defaultDisplayWidth}px; height: ${defaultDisplayHeight}px;"
+                            />
+                            <div class="resizable-image-handle"></div>
+                          </div>
+                        `;
+                        document.execCommand('insertHTML', false, resizableHTML);
+
+                        // 3) Attach event listeners for resizing
+                        // Get the container we just inserted:
+                        //   - Use :last-of-type to get the most recently inserted .resizable-image-container
+                        const allContainers = editor.querySelectorAll('.resizable-image-container');
+                        const thisContainer = allContainers[allContainers.length - 1];
+                        const thisImage = thisContainer.querySelector('img');
+                        const thisHandle = thisContainer.querySelector('.resizable-image-handle');
+                        
+                        let isResizing = false;
+                        let startX, startY;
+                        let startWidth, startHeight;
+
+                        // track the natural aspect ratio of the actual image
+                        const aspectRatio = naturalHeight / naturalWidth;
+
+                        // Mousedown on the handle => prepare to resize
+                        thisHandle.addEventListener('mousedown', (evt) => {
+                            evt.preventDefault();
+                            isResizing = true;
+                            startX = evt.clientX;
+                            startY = evt.clientY;
+                            // current sizes in px
+                            startWidth = parseInt(window.getComputedStyle(thisImage).width, 10);
+                            startHeight = parseInt(window.getComputedStyle(thisImage).height, 10);
+                            
+                            // Listen on the document so we can track mouse move outside the container
+                            document.addEventListener('mousemove', doDrag);
+                            document.addEventListener('mouseup', stopDrag);
+                        });
+
+                        function doDrag(evt) {
+                            if (!isResizing) return;
+                            
+                            // Calculate how far we've dragged
+                            const dx = evt.clientX - startX;
+                            // Scale width by dx
+                            const newWidth = startWidth + dx;
+                            // Enforce aspect ratio for new height
+                            const newHeight = newWidth * aspectRatio;
+                            
+                            if (newWidth > 20 && newHeight > 20) {
+                                thisImage.style.width = newWidth + 'px';
+                                thisImage.style.height = newHeight + 'px';
+                            }
+                        }
+
+                        function stopDrag(evt) {
+                            isResizing = false;
+                            document.removeEventListener('mousemove', doDrag);
+                            document.removeEventListener('mouseup', stopDrag);
+                            // Finally update the underlying textarea
+                            textarea.value = editor.innerHTML;
+                        }
+                        
+                        // Also update the textarea after inserting
+                        textarea.value = editor.innerHTML;
+                    };
                 };
                 reader.readAsDataURL(file);
             }
@@ -150,4 +228,3 @@ const jocarsaSnow = {
         });
     }
 };
-
