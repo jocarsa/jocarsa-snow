@@ -41,6 +41,9 @@
 	align-items: center;
 	align-content: stretch;
 }
+.jocarsa-snow-toolbar label{
+	width:auto;
+}
 .jocarsa-snow-toolbar button img{
 	width:16px;
 }
