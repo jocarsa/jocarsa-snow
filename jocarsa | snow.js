@@ -30,7 +30,7 @@ const jocarsaSnow = {
             <button type="button" data-command="bold"><img src="${baseUrl}/bold.svg" alt="Negrita"></button>
             <button type="button" data-command="italic"><img src="${baseUrl}/italic.svg" alt="Italica"></button>
             <button type="button" data-command="underline"><img src="${baseUrl}/underline.svg" alt="Subrayado"></button>
-            <button type="button" data-command="strikeThrough"><img src="s${baseUrl}/strike.svg" alt="Tachado"></button>
+            <button type="button" data-command="strikeThrough"><img src="${baseUrl}/strike.svg" alt="Tachado"></button>
             <button type="button" data-command="justifyLeft"><img src="${baseUrl}/left.svg" alt="Justificar a la izquierda"></button>
             <button type="button" data-command="justifyCenter"><img src="${baseUrl}/center.svg" alt="Jupstificar al centro"></button>
             <button type="button" data-command="justifyRight"><img src="${baseUrl}/right.svg" alt="Justificar a la derecha"></button>
