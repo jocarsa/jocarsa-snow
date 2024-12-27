@@ -9,7 +9,7 @@ const jocarsaSnow = {
     createEditor: function (textarea) {
         const baseUrl = 'https://jocarsa.github.io/jocarsa-snow/svg/';
 
-        // Hide the textarea
+        // Hide the original textarea
         textarea.style.display = 'none';
 
         // Create editor container
@@ -66,64 +66,74 @@ const jocarsaSnow = {
             <label><input type="color" id="textColorPicker"></label>
             <label><input type="color" id="bgColorPicker"></label>
 
-            <!-- ADD THIS TOGGLE BUTTON AT THE END OF THE TOOLBAR -->
+            <!-- Toggle button for switching to/from HTML view -->
             <button type="button" id="toggleCodeView">HTML</button>
         `;
 
-        // Create contenteditable div
-        const editor = document.createElement('div');
-        editor.className = 'jocarsa-snow-editor';
-        editor.contentEditable = true;
-        editor.innerHTML = textarea.value;
+        // Create the WYSIWYG editor DIV
+        const editorDiv = document.createElement('div');
+        editorDiv.className = 'jocarsa-snow-editor';
+        editorDiv.contentEditable = true;
+        editorDiv.innerHTML = textarea.value;
 
-        // Append toolbar and editor to container
+        // Create a hidden <textarea> for HTML code editing
+        const codeTextarea = document.createElement('textarea');
+        codeTextarea.style.display = 'none';
+        codeTextarea.className = 'jocarsa-snow-code-editor';
+
+        // Append toolbar, WYSIWYG div, and code textarea to container
         editorContainer.appendChild(toolbar);
-        editorContainer.appendChild(editor);
+        editorContainer.appendChild(editorDiv);
+        editorContainer.appendChild(codeTextarea);
 
-        // Insert container before textarea
+        // Insert container before original textarea
         textarea.parentNode.insertBefore(editorContainer, textarea);
 
-        // Toolbar button event listeners
+        // -----------------------
+        // Toolbar button handlers
+        // -----------------------
         toolbar.querySelectorAll('button[data-command]').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const command = button.getAttribute('data-command');
                 document.execCommand(command, false, null);
-                textarea.value = editor.innerHTML;
+                textarea.value = editorDiv.innerHTML;
             });
         });
 
-        // Font family selector
+        // Font family
         toolbar.querySelector('#fontFamilySelector').addEventListener('change', (e) => {
             document.execCommand('fontName', false, e.target.value);
-            textarea.value = editor.innerHTML;
+            textarea.value = editorDiv.innerHTML;
         });
 
-        // Font size selector
+        // Font size
         toolbar.querySelector('#fontSizeSelector').addEventListener('change', (e) => {
             document.execCommand('fontSize', false, e.target.value);
-            textarea.value = editor.innerHTML;
+            textarea.value = editorDiv.innerHTML;
         });
 
-        // Text color picker
+        // Text color
         toolbar.querySelector('#textColorPicker').addEventListener('input', (e) => {
             document.execCommand('foreColor', false, e.target.value);
-            textarea.value = editor.innerHTML;
+            textarea.value = editorDiv.innerHTML;
         });
 
-        // Background color picker
+        // Background color
         toolbar.querySelector('#bgColorPicker').addEventListener('input', (e) => {
             document.execCommand('backColor', false, e.target.value);
-            textarea.value = editor.innerHTML;
+            textarea.value = editorDiv.innerHTML;
         });
 
-        // Block style selector
+        // Block style
         toolbar.querySelector('#blockStyleSelector').addEventListener('change', (e) => {
             document.execCommand('formatBlock', false, e.target.value);
-            textarea.value = editor.innerHTML;
+            textarea.value = editorDiv.innerHTML;
         });
 
+        // -----------------------
         // Image uploader logic
+        // -----------------------
         const insertImageButton = toolbar.querySelector('#insertImageButton');
         const imageUploader = toolbar.querySelector('#imageUploader');
 
@@ -131,31 +141,28 @@ const jocarsaSnow = {
             imageUploader.click();
         });
 
-        // --- MODIFIED IMAGE INSERT LOGIC FOR RESIZABLE PLACEHOLDER ---
         imageUploader.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     const base64String = event.target.result;
-                    
-                    // 1) Create a temporary Image to measure its natural size
+
+                    // Insert resizable placeholder
                     const tempImg = new Image();
                     tempImg.src = base64String;
-                    tempImg.onload = function() {
+                    tempImg.onload = function () {
                         const naturalWidth = tempImg.width;
                         const naturalHeight = tempImg.height;
-                        
-                        // Choose some default display width; maintain aspect ratio
+
                         const defaultDisplayWidth = Math.min(naturalWidth, 300);
                         const ratio = naturalHeight / naturalWidth;
                         const defaultDisplayHeight = defaultDisplayWidth * ratio;
-                        
-                        // 2) Insert a container with a resize handle
+
                         const resizableHTML = `
                           <div class="resizable-image-container" contenteditable="false">
-                            <img 
-                              src="${base64String}" 
+                            <img
+                              src="${base64String}"
                               alt="Inserted Image"
                               style="width: ${defaultDisplayWidth}px; height: ${defaultDisplayHeight}px;"
                             />
@@ -164,20 +171,17 @@ const jocarsaSnow = {
                         `;
                         document.execCommand('insertHTML', false, resizableHTML);
 
-                        // 3) Attach event listeners for resizing
-                        const allContainers = editor.querySelectorAll('.resizable-image-container');
+                        // Attach resizing logic
+                        const allContainers = editorDiv.querySelectorAll('.resizable-image-container');
                         const thisContainer = allContainers[allContainers.length - 1];
                         const thisImage = thisContainer.querySelector('img');
                         const thisHandle = thisContainer.querySelector('.resizable-image-handle');
-                        
+
                         let isResizing = false;
                         let startX, startY;
                         let startWidth, startHeight;
-
-                        // track the natural aspect ratio
                         const aspectRatio = naturalHeight / naturalWidth;
 
-                        // Mousedown on the handle => prepare to resize
                         thisHandle.addEventListener('mousedown', (evt) => {
                             evt.preventDefault();
                             isResizing = true;
@@ -195,72 +199,77 @@ const jocarsaSnow = {
                             const dx = evt.clientX - startX;
                             const newWidth = startWidth + dx;
                             const newHeight = newWidth * aspectRatio;
-                            
+
                             if (newWidth > 20 && newHeight > 20) {
                                 thisImage.style.width = newWidth + 'px';
                                 thisImage.style.height = newHeight + 'px';
                             }
                         }
 
-                        function stopDrag(evt) {
+                        function stopDrag() {
                             isResizing = false;
                             document.removeEventListener('mousemove', doDrag);
                             document.removeEventListener('mouseup', stopDrag);
-                            textarea.value = editor.innerHTML;
+                            textarea.value = editorDiv.innerHTML;
                         }
                         
-                        // Also update the textarea after inserting
-                        textarea.value = editor.innerHTML;
+                        textarea.value = editorDiv.innerHTML;
                     };
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        // Sync editor content to textarea on input
-        editor.addEventListener('input', () => {
-            textarea.value = editor.innerHTML;
+        // Sync editor to original textarea
+        editorDiv.addEventListener('input', () => {
+            textarea.value = editorDiv.innerHTML;
         });
 
-        // -------------------------------------------------------------------
-        // ADD THE CODE VIEW TOGGLE LOGIC HERE:
-        // -------------------------------------------------------------------
+        // ---------------------------------------------------
+        // Toggle between code view and WYSIWYG
+        // ---------------------------------------------------
         let isCodeView = false;
         const toggleCodeViewBtn = toolbar.querySelector('#toggleCodeView');
 
         toggleCodeViewBtn.addEventListener('click', () => {
             if (!isCodeView) {
-                // Switching FROM WYSIWYG TO HTML
-                // 1) Store the latest WYSIWYG content in the textarea
-                textarea.value = editor.innerHTML;
+                // ------------------------------------------
+                // Switching from WYSIWYG to HTML code view
+                // ------------------------------------------
+                // 1) Put current WYSIWYG HTML into code textarea
+                codeTextarea.value = editorDiv.innerHTML;
 
-                // 2) Put the raw HTML into the editor as text
-                editor.textContent = textarea.value;
+                // 2) Hide the WYSIWYG editor
+                editorDiv.style.display = 'none';
 
-                // 3) Disable contentEditable so we can edit raw HTML safely
-                editor.contentEditable = false;
+                // 3) Show the code editor
+                codeTextarea.style.display = 'block';
+                codeTextarea.focus();
 
-                // 4) Change button label (optional)
+                // 4) Update button text
                 toggleCodeViewBtn.textContent = 'WYSIWYG';
+
             } else {
-                // Switching FROM HTML TO WYSIWYG
-                // 1) Take code text from the editor
-                const rawCode = editor.textContent;
+                // ------------------------------------------
+                // Switching from HTML code view back to WYSIWYG
+                // ------------------------------------------
+                // 1) Apply changes to WYSIWYG
+                editorDiv.innerHTML = codeTextarea.value;
 
-                // 2) Set the editor to WYSIWYG mode with that code
-                editor.innerHTML = rawCode;
+                // 2) Hide the code textarea
+                codeTextarea.style.display = 'none';
 
-                // 3) Re-enable contentEditable
-                editor.contentEditable = true;
+                // 3) Show the WYSIWYG editor
+                editorDiv.style.display = 'block';
+                editorDiv.focus();
 
-                // 4) Change button label (optional)
+                // 4) Update button text
                 toggleCodeViewBtn.textContent = 'HTML';
 
-                // Sync back to textarea
-                textarea.value = editor.innerHTML;
+                // 5) Sync to hidden <textarea>
+                textarea.value = editorDiv.innerHTML;
             }
 
-            // Flip the mode
             isCodeView = !isCodeView;
         });
     }
