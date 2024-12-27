@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const jocarsaSnow = {
     createEditor: function (textarea) {
         const baseUrl = 'https://jocarsa.github.io/jocarsa-snow/svg/';
+
         // Hide the textarea
         textarea.style.display = 'none';
 
@@ -32,6 +33,7 @@ const jocarsaSnow = {
             <button type="button" id="insertImageButton"><img src="${baseUrl}/image.svg" alt="Imagen"></button>
             <input type="file" id="imageUploader" accept="image/*" style="display: none;">
             <button type="button" data-command="removeFormat">Clear</button>
+
             <label>
                 <select id="fontFamilySelector">
                     <option value="serif">Serif</option>
@@ -63,6 +65,9 @@ const jocarsaSnow = {
             </label>
             <label><input type="color" id="textColorPicker"></label>
             <label><input type="color" id="bgColorPicker"></label>
+
+            <!-- ADD THIS TOGGLE BUTTON AT THE END OF THE TOOLBAR -->
+            <button type="button" id="toggleCodeView">HTML</button>
         `;
 
         // Create contenteditable div
@@ -142,12 +147,11 @@ const jocarsaSnow = {
                         const naturalHeight = tempImg.height;
                         
                         // Choose some default display width; maintain aspect ratio
-                        // You can tweak this as you like
                         const defaultDisplayWidth = Math.min(naturalWidth, 300);
                         const ratio = naturalHeight / naturalWidth;
                         const defaultDisplayHeight = defaultDisplayWidth * ratio;
                         
-                        // 2) Insert a container (instead of a bare <img>) with a resize handle
+                        // 2) Insert a container with a resize handle
                         const resizableHTML = `
                           <div class="resizable-image-container" contenteditable="false">
                             <img 
@@ -161,8 +165,6 @@ const jocarsaSnow = {
                         document.execCommand('insertHTML', false, resizableHTML);
 
                         // 3) Attach event listeners for resizing
-                        // Get the container we just inserted:
-                        //   - Use :last-of-type to get the most recently inserted .resizable-image-container
                         const allContainers = editor.querySelectorAll('.resizable-image-container');
                         const thisContainer = allContainers[allContainers.length - 1];
                         const thisImage = thisContainer.querySelector('img');
@@ -172,7 +174,7 @@ const jocarsaSnow = {
                         let startX, startY;
                         let startWidth, startHeight;
 
-                        // track the natural aspect ratio of the actual image
+                        // track the natural aspect ratio
                         const aspectRatio = naturalHeight / naturalWidth;
 
                         // Mousedown on the handle => prepare to resize
@@ -181,23 +183,17 @@ const jocarsaSnow = {
                             isResizing = true;
                             startX = evt.clientX;
                             startY = evt.clientY;
-                            // current sizes in px
                             startWidth = parseInt(window.getComputedStyle(thisImage).width, 10);
                             startHeight = parseInt(window.getComputedStyle(thisImage).height, 10);
-                            
-                            // Listen on the document so we can track mouse move outside the container
+
                             document.addEventListener('mousemove', doDrag);
                             document.addEventListener('mouseup', stopDrag);
                         });
 
                         function doDrag(evt) {
                             if (!isResizing) return;
-                            
-                            // Calculate how far we've dragged
                             const dx = evt.clientX - startX;
-                            // Scale width by dx
                             const newWidth = startWidth + dx;
-                            // Enforce aspect ratio for new height
                             const newHeight = newWidth * aspectRatio;
                             
                             if (newWidth > 20 && newHeight > 20) {
@@ -210,7 +206,6 @@ const jocarsaSnow = {
                             isResizing = false;
                             document.removeEventListener('mousemove', doDrag);
                             document.removeEventListener('mouseup', stopDrag);
-                            // Finally update the underlying textarea
                             textarea.value = editor.innerHTML;
                         }
                         
@@ -226,5 +221,48 @@ const jocarsaSnow = {
         editor.addEventListener('input', () => {
             textarea.value = editor.innerHTML;
         });
+
+        // -------------------------------------------------------------------
+        // ADD THE CODE VIEW TOGGLE LOGIC HERE:
+        // -------------------------------------------------------------------
+        let isCodeView = false;
+        const toggleCodeViewBtn = toolbar.querySelector('#toggleCodeView');
+
+        toggleCodeViewBtn.addEventListener('click', () => {
+            if (!isCodeView) {
+                // Switching FROM WYSIWYG TO HTML
+                // 1) Store the latest WYSIWYG content in the textarea
+                textarea.value = editor.innerHTML;
+
+                // 2) Put the raw HTML into the editor as text
+                editor.textContent = textarea.value;
+
+                // 3) Disable contentEditable so we can edit raw HTML safely
+                editor.contentEditable = false;
+
+                // 4) Change button label (optional)
+                toggleCodeViewBtn.textContent = 'WYSIWYG';
+            } else {
+                // Switching FROM HTML TO WYSIWYG
+                // 1) Take code text from the editor
+                const rawCode = editor.textContent;
+
+                // 2) Set the editor to WYSIWYG mode with that code
+                editor.innerHTML = rawCode;
+
+                // 3) Re-enable contentEditable
+                editor.contentEditable = true;
+
+                // 4) Change button label (optional)
+                toggleCodeViewBtn.textContent = 'HTML';
+
+                // Sync back to textarea
+                textarea.value = editor.innerHTML;
+            }
+
+            // Flip the mode
+            isCodeView = !isCodeView;
+        });
     }
 };
+
