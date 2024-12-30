@@ -155,4 +155,96 @@
     box-sizing: border-box;
     overflow: auto;
 }
+/* CSS Pane Styling */
+.jocarsa-snow-css-pane {
+    width: 220px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+}
+
+.jocarsa-snow-css-pane h3 {
+    margin-top: 0;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.css-property {
+    margin-bottom: 10px;
+}
+
+.css-property label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.css-property input[type="text"],
+.css-property input[type="color"] {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+#closeCssPane {
+    width: 100%;
+    padding: 5px;
+    background: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#closeCssPane:hover {
+    background: #d32f2f;
+}
+
+/* Resizable Image Handle Styling */
+.resizable-image-handle {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 1px solid #000;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+
+/* Toolbar Button Styling */
+.jocarsa-snow-toolbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.jocarsa-snow-toolbar button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Editor Container Styling */
+.jocarsa-snow-editor-container {
+    margin-bottom: 20px;
+}
+
+/* Editor Styling */
+.jocarsa-snow-editor {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
 
