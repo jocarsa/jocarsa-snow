@@ -155,4 +155,6 @@
     box-sizing: border-box;
     overflow: auto;
 }
-
+.jocarsa-snow-editor ul, .jocarsa-snow-editor ol{
+	padding-left:20px;
+}
