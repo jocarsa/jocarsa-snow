@@ -158,3 +158,6 @@
 .jocarsa-snow-editor ul, .jocarsa-snow-editor ol{
 	padding-left:20px;
 }
+.jocarsa-snow-editor td{
+	min-width:20px;
+}

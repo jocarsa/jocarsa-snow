@@ -1,277 +1,390 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize WYSIWYG editors for all textareas
-    document.querySelectorAll('textarea').forEach(textarea => {
-        jocarsaSnow.createEditor(textarea);
-    });
+  // Initialize WYSIWYG editors for all textareas
+  document.querySelectorAll('textarea').forEach(textarea => {
+    jocarsaSnow.createEditor(textarea);
+  });
 });
 
 const jocarsaSnow = {
-    createEditor: function (textarea) {
-        const baseUrl = 'https://jocarsa.github.io/jocarsa-snow/svg/';
+  createEditor: function (textarea) {
+    const baseUrl = 'https://jocarsa.github.io/jocarsa-snow/svg';
 
-        // Hide the original textarea
-        textarea.style.display = 'none';
+    // Hide the original textarea
+    textarea.style.display = 'none';
 
-        // Create editor container
-        const editorContainer = document.createElement('div');
-        editorContainer.className = 'jocarsa-snow-editor-container';
+    // Create editor container
+    const editorContainer = document.createElement('div');
+    editorContainer.className = 'jocarsa-snow-editor-container';
 
-        // Create toolbar
-        const toolbar = document.createElement('div');
-        toolbar.className = 'jocarsa-snow-toolbar';
-        toolbar.innerHTML = `
-            <button type="button" data-command="bold"><img src="${baseUrl}/bold.svg" alt="Negrita"></button>
-            <button type="button" data-command="italic"><img src="${baseUrl}/italic.svg" alt="Itálica"></button>
-            <button type="button" data-command="underline"><img src="${baseUrl}/underline.svg" alt="Subrayado"></button>
-            <button type="button" data-command="strikeThrough"><img src="${baseUrl}/strike.svg" alt="Tachado"></button>
-            <button type="button" data-command="justifyLeft"><img src="${baseUrl}/left.svg" alt="Justificar a la izquierda"></button>
-            <button type="button" data-command="justifyCenter"><img src="${baseUrl}/center.svg" alt="Justificar al centro"></button>
-            <button type="button" data-command="justifyRight"><img src="${baseUrl}/right.svg" alt="Justificar a la derecha"></button>
-            <button type="button" data-command="justifyFull"><img src="${baseUrl}/justify.svg" alt="Justificación completa"></button>
-            <button type="button" data-command="insertOrderedList"><img src="${baseUrl}/ul.svg" alt="Lista ordenada"></button>
-            <button type="button" data-command="insertUnorderedList"><img src="${baseUrl}/ol.svg" alt="Lista no ordenada"></button>
-            <button type="button" id="insertImageButton"><img src="${baseUrl}/image.svg" alt="Imagen"></button>
-            <input type="file" id="imageUploader" accept="image/*" style="display: none;">
-            <button type="button" data-command="removeFormat">Clear</button>
+    // Create toolbar with additional table actions
+    const toolbar = document.createElement('div');
+    toolbar.className = 'jocarsa-snow-toolbar';
+    toolbar.innerHTML = `
+      <button type="button" data-command="bold"><img src="${baseUrl}/bold.svg" alt="Negrita"></button>
+      <button type="button" data-command="italic"><img src="${baseUrl}/italic.svg" alt="Itálica"></button>
+      <button type="button" data-command="underline"><img src="${baseUrl}/underline.svg" alt="Subrayado"></button>
+      <button type="button" data-command="strikeThrough"><img src="${baseUrl}/strike.svg" alt="Tachado"></button>
+      <button type="button" data-command="justifyLeft"><img src="${baseUrl}/left.svg" alt="Justificar a la izquierda"></button>
+      <button type="button" data-command="justifyCenter"><img src="${baseUrl}/center.svg" alt="Justificar al centro"></button>
+      <button type="button" data-command="justifyRight"><img src="${baseUrl}/right.svg" alt="Justificar a la derecha"></button>
+      <button type="button" data-command="justifyFull"><img src="${baseUrl}/justify.svg" alt="Justificación completa"></button>
+      <button type="button" data-command="insertOrderedList"><img src="${baseUrl}/ul.svg" alt="Lista ordenada"></button>
+      <button type="button" data-command="insertUnorderedList"><img src="${baseUrl}/ol.svg" alt="Lista no ordenada"></button>
+      <button type="button" id="insertImageButton"><img src="${baseUrl}/image.svg" alt="Imagen"></button>
+      <input type="file" id="imageUploader" accept="image/*" style="display: none;">
+      <button type="button" data-command="removeFormat">Clear</button>
+      
+      <!-- Table actions -->
+      <button type="button" data-command="insertTable"><img src="${baseUrl}/table.svg" alt="Insert Table"></button>
+      <button type="button" data-command="addRow">Add Row</button>
+      <button type="button" data-command="addColumn">Add Column</button>
+      <button type="button" data-command="deleteRow">Delete Row</button>
+      <button type="button" data-command="deleteColumn">Delete Column</button>
+      
+      <label>
+        <select id="fontFamilySelector">
+          <option value="serif">Serif</option>
+          <option value="sans-serif">Sans Serif</option>
+          <option value="monospace">Monospace</option>
+          <option value="cursive">Cursive</option>
+          <option value="fantasy">Fantasy</option>
+        </select>
+      </label>
+      <label>
+        <select id="fontSizeSelector">
+          <option value="1">Small</option>
+          <option value="3">Normal</option>
+          <option value="5">Large</option>
+          <option value="7">Extra Large</option>
+        </select>
+      </label>
+      <label>
+        <select id="blockStyleSelector">
+          <option value="p">Paragraph</option>
+          <option value="h1">Heading 1</option>
+          <option value="h2">Heading 2</option>
+          <option value="h3">Heading 3</option>
+          <option value="h4">Heading 4</option>
+          <option value="h5">Heading 5</option>
+          <option value="h6">Heading 6</option>
+          <option value="pre">Preformatted</option>
+        </select>
+      </label>
+      <label><input type="color" id="textColorPicker"></label>
+      <label><input type="color" id="bgColorPicker"></label>
+      
+      <!-- Toggle button for switching to/from HTML view -->
+      <button type="button" id="toggleCodeView">HTML</button>
+    `;
 
-            <label>
-                <select id="fontFamilySelector">
-                    <option value="serif">Serif</option>
-                    <option value="sans-serif">Sans Serif</option>
-                    <option value="monospace">Monospace</option>
-                    <option value="cursive">Cursive</option>
-                    <option value="fantasy">Fantasy</option>
-                </select>
-            </label>
-            <label>
-                <select id="fontSizeSelector">
-                    <option value="1">Small</option>
-                    <option value="3">Normal</option>
-                    <option value="5">Large</option>
-                    <option value="7">Extra Large</option>
-                </select>
-            </label>
-            <label>
-                <select id="blockStyleSelector">
-                    <option value="p">Paragraph</option>
-                    <option value="h1">Heading 1</option>
-                    <option value="h2">Heading 2</option>
-                    <option value="h3">Heading 3</option>
-                    <option value="h4">Heading 4</option>
-                    <option value="h5">Heading 5</option>
-                    <option value="h6">Heading 6</option>
-                    <option value="pre">Preformatted</option>
-                </select>
-            </label>
-            <label><input type="color" id="textColorPicker"></label>
-            <label><input type="color" id="bgColorPicker"></label>
+    // Create the WYSIWYG editor DIV
+    const editorDiv = document.createElement('div');
+    editorDiv.className = 'jocarsa-snow-editor';
+    editorDiv.contentEditable = true;
+    editorDiv.innerHTML = textarea.value;
 
-            <!-- Toggle button for switching to/from HTML view -->
-            <button type="button" id="toggleCodeView">HTML</button>
-        `;
+    // Create a hidden <textarea> for HTML code editing
+    const codeTextarea = document.createElement('textarea');
+    codeTextarea.style.display = 'none';
+    codeTextarea.className = 'jocarsa-snow-code-editor';
 
-        // Create the WYSIWYG editor DIV
-        const editorDiv = document.createElement('div');
-        editorDiv.className = 'jocarsa-snow-editor';
-        editorDiv.contentEditable = true;
-        editorDiv.innerHTML = textarea.value;
+    // Append toolbar, WYSIWYG div, and code textarea to container
+    editorContainer.appendChild(toolbar);
+    editorContainer.appendChild(editorDiv);
+    editorContainer.appendChild(codeTextarea);
 
-        // Create a hidden <textarea> for HTML code editing
-        const codeTextarea = document.createElement('textarea');
-        codeTextarea.style.display = 'none';
-        codeTextarea.className = 'jocarsa-snow-code-editor';
+    // Insert container before original textarea
+    textarea.parentNode.insertBefore(editorContainer, textarea);
 
-        // Append toolbar, WYSIWYG div, and code textarea to container
-        editorContainer.appendChild(toolbar);
-        editorContainer.appendChild(editorDiv);
-        editorContainer.appendChild(codeTextarea);
+    // -----------------------
+    // Toolbar button handlers
+    // -----------------------
+    toolbar.querySelectorAll('button[data-command]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const command = button.getAttribute('data-command');
 
-        // Insert container before original textarea
-        textarea.parentNode.insertBefore(editorContainer, textarea);
+        if (command === 'insertTable') {
+          // Insert a 3x3 table
+          const tableHTML = `
+            <table border="1" style="border-collapse: collapse; width: auto;">
+              <tbody>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          `;
+          document.execCommand('insertHTML', false, tableHTML);
+        }
+        else if (command === 'addRow') {
+          // Find the closest table row and add a new row after it
+          const sel = window.getSelection();
+          if (sel.rangeCount > 0) {
+            let node = sel.anchorNode;
+            while (node && node.nodeName.toLowerCase() !== 'tr') {
+              node = node.parentNode;
+            }
+            if (node && node.nodeName.toLowerCase() === 'tr') {
+              const currentRow = node;
+              const cellCount = currentRow.children.length;
+              const newRow = document.createElement('tr');
+              for (let i = 0; i < cellCount; i++) {
+                const newCell = document.createElement('td');
+                newCell.innerHTML = '&nbsp;';
+                newRow.appendChild(newCell);
+              }
+              currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+            }
+          }
+        }
+        else if (command === 'addColumn') {
+          // Find the current table cell and add a new column after its position in every row
+          const sel = window.getSelection();
+          if (sel.rangeCount > 0) {
+            let node = sel.anchorNode;
+            while (node && node.nodeName.toLowerCase() !== 'td' && node.nodeName.toLowerCase() !== 'th') {
+              node = node.parentNode;
+            }
+            if (node && (node.nodeName.toLowerCase() === 'td' || node.nodeName.toLowerCase() === 'th')) {
+              const currentCell = node;
+              const cellIndex = Array.prototype.indexOf.call(currentCell.parentNode.children, currentCell);
+              let tableNode = currentCell;
+              while (tableNode && tableNode.nodeName.toLowerCase() !== 'table') {
+                tableNode = tableNode.parentNode;
+              }
+              if (tableNode) {
+                const rows = tableNode.querySelectorAll('tr');
+                rows.forEach(row => {
+                  const newCell = document.createElement('td');
+                  newCell.innerHTML = '&nbsp;';
+                  if (row.children.length > cellIndex + 1) {
+                    row.insertBefore(newCell, row.children[cellIndex + 1]);
+                  } else {
+                    row.appendChild(newCell);
+                  }
+                });
+              }
+            }
+          }
+        }
+        else if (command === 'deleteRow') {
+          // Find the current row and delete it (if it is the only row, remove the whole table)
+          const sel = window.getSelection();
+          if (sel.rangeCount > 0) {
+            let node = sel.anchorNode;
+            while (node && node.nodeName.toLowerCase() !== 'tr') {
+              node = node.parentNode;
+            }
+            if (node && node.nodeName.toLowerCase() === 'tr') {
+              const currentRow = node;
+              const tbody = currentRow.parentNode;
+              if (tbody.rows.length > 1) {
+                tbody.removeChild(currentRow);
+              } else {
+                // Only one row left – remove the table altogether
+                let tableNode = tbody.parentNode;
+                tableNode.parentNode.removeChild(tableNode);
+              }
+            }
+          }
+        }
+        else if (command === 'deleteColumn') {
+          // Find the current cell, then remove the cell at that index in every row of the table
+          const sel = window.getSelection();
+          if (sel.rangeCount > 0) {
+            let node = sel.anchorNode;
+            while (node && node.nodeName.toLowerCase() !== 'td' && node.nodeName.toLowerCase() !== 'th') {
+              node = node.parentNode;
+            }
+            if (node && (node.nodeName.toLowerCase() === 'td' || node.nodeName.toLowerCase() === 'th')) {
+              const currentCell = node;
+              const cellIndex = Array.prototype.indexOf.call(currentCell.parentNode.children, currentCell);
+              let tableNode = currentCell;
+              while (tableNode && tableNode.nodeName.toLowerCase() !== 'table') {
+                tableNode = tableNode.parentNode;
+              }
+              if (tableNode) {
+                const rows = tableNode.querySelectorAll('tr');
+                rows.forEach(row => {
+                  if (row.children.length > cellIndex) {
+                    row.removeChild(row.children[cellIndex]);
+                  }
+                });
+              }
+            }
+          }
+        }
+        else {
+          // For all other commands, use document.execCommand
+          document.execCommand(command, false, null);
+        }
+        // Sync the content to the hidden textarea
+        textarea.value = editorDiv.innerHTML;
+      });
+    });
 
-        // -----------------------
-        // Toolbar button handlers
-        // -----------------------
-        toolbar.querySelectorAll('button[data-command]').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const command = button.getAttribute('data-command');
-                document.execCommand(command, false, null);
-                textarea.value = editorDiv.innerHTML;
+    // Font family
+    toolbar.querySelector('#fontFamilySelector').addEventListener('change', (e) => {
+      document.execCommand('fontName', false, e.target.value);
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // Font size
+    toolbar.querySelector('#fontSizeSelector').addEventListener('change', (e) => {
+      document.execCommand('fontSize', false, e.target.value);
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // Text color
+    toolbar.querySelector('#textColorPicker').addEventListener('input', (e) => {
+      document.execCommand('foreColor', false, e.target.value);
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // Background color
+    toolbar.querySelector('#bgColorPicker').addEventListener('input', (e) => {
+      document.execCommand('backColor', false, e.target.value);
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // Block style
+    toolbar.querySelector('#blockStyleSelector').addEventListener('change', (e) => {
+      document.execCommand('formatBlock', false, e.target.value);
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // -----------------------
+    // Image uploader logic
+    // -----------------------
+    const insertImageButton = toolbar.querySelector('#insertImageButton');
+    const imageUploader = toolbar.querySelector('#imageUploader');
+
+    insertImageButton.addEventListener('click', () => {
+      imageUploader.click();
+    });
+
+    imageUploader.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64String = event.target.result;
+
+          // Insert resizable placeholder
+          const tempImg = new Image();
+          tempImg.src = base64String;
+          tempImg.onload = function () {
+            const naturalWidth = tempImg.width;
+            const naturalHeight = tempImg.height;
+
+            const defaultDisplayWidth = Math.min(naturalWidth, 300);
+            const ratio = naturalHeight / naturalWidth;
+            const defaultDisplayHeight = defaultDisplayWidth * ratio;
+
+            const resizableHTML = `
+              <div class="resizable-image-container" contenteditable="false">
+                <img
+                  src="${base64String}"
+                  alt="Inserted Image"
+                  style="width: ${defaultDisplayWidth}px; height: ${defaultDisplayHeight}px;"
+                />
+                <div class="resizable-image-handle"></div>
+              </div>
+            `;
+            document.execCommand('insertHTML', false, resizableHTML);
+
+            // Attach resizing logic
+            const allContainers = editorDiv.querySelectorAll('.resizable-image-container');
+            const thisContainer = allContainers[allContainers.length - 1];
+            const thisImage = thisContainer.querySelector('img');
+            const thisHandle = thisContainer.querySelector('.resizable-image-handle');
+
+            let isResizing = false;
+            let startX, startY;
+            let startWidth, startHeight;
+            const aspectRatio = naturalHeight / naturalWidth;
+
+            thisHandle.addEventListener('mousedown', (evt) => {
+              evt.preventDefault();
+              isResizing = true;
+              startX = evt.clientX;
+              startY = evt.clientY;
+              startWidth = parseInt(window.getComputedStyle(thisImage).width, 10);
+              startHeight = parseInt(window.getComputedStyle(thisImage).height, 10);
+
+              document.addEventListener('mousemove', doDrag);
+              document.addEventListener('mouseup', stopDrag);
             });
-        });
 
-        // Font family
-        toolbar.querySelector('#fontFamilySelector').addEventListener('change', (e) => {
-            document.execCommand('fontName', false, e.target.value);
-            textarea.value = editorDiv.innerHTML;
-        });
+            function doDrag(evt) {
+              if (!isResizing) return;
+              const dx = evt.clientX - startX;
+              const newWidth = startWidth + dx;
+              const newHeight = newWidth * aspectRatio;
 
-        // Font size
-        toolbar.querySelector('#fontSizeSelector').addEventListener('change', (e) => {
-            document.execCommand('fontSize', false, e.target.value);
-            textarea.value = editorDiv.innerHTML;
-        });
-
-        // Text color
-        toolbar.querySelector('#textColorPicker').addEventListener('input', (e) => {
-            document.execCommand('foreColor', false, e.target.value);
-            textarea.value = editorDiv.innerHTML;
-        });
-
-        // Background color
-        toolbar.querySelector('#bgColorPicker').addEventListener('input', (e) => {
-            document.execCommand('backColor', false, e.target.value);
-            textarea.value = editorDiv.innerHTML;
-        });
-
-        // Block style
-        toolbar.querySelector('#blockStyleSelector').addEventListener('change', (e) => {
-            document.execCommand('formatBlock', false, e.target.value);
-            textarea.value = editorDiv.innerHTML;
-        });
-
-        // -----------------------
-        // Image uploader logic
-        // -----------------------
-        const insertImageButton = toolbar.querySelector('#insertImageButton');
-        const imageUploader = toolbar.querySelector('#imageUploader');
-
-        insertImageButton.addEventListener('click', () => {
-            imageUploader.click();
-        });
-
-        imageUploader.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const base64String = event.target.result;
-
-                    // Insert resizable placeholder
-                    const tempImg = new Image();
-                    tempImg.src = base64String;
-                    tempImg.onload = function () {
-                        const naturalWidth = tempImg.width;
-                        const naturalHeight = tempImg.height;
-
-                        const defaultDisplayWidth = Math.min(naturalWidth, 300);
-                        const ratio = naturalHeight / naturalWidth;
-                        const defaultDisplayHeight = defaultDisplayWidth * ratio;
-
-                        const resizableHTML = `
-                          <div class="resizable-image-container" contenteditable="false">
-                            <img
-                              src="${base64String}"
-                              alt="Inserted Image"
-                              style="width: ${defaultDisplayWidth}px; height: ${defaultDisplayHeight}px;"
-                            />
-                            <div class="resizable-image-handle"></div>
-                          </div>
-                        `;
-                        document.execCommand('insertHTML', false, resizableHTML);
-
-                        // Attach resizing logic
-                        const allContainers = editorDiv.querySelectorAll('.resizable-image-container');
-                        const thisContainer = allContainers[allContainers.length - 1];
-                        const thisImage = thisContainer.querySelector('img');
-                        const thisHandle = thisContainer.querySelector('.resizable-image-handle');
-
-                        let isResizing = false;
-                        let startX, startY;
-                        let startWidth, startHeight;
-                        const aspectRatio = naturalHeight / naturalWidth;
-
-                        thisHandle.addEventListener('mousedown', (evt) => {
-                            evt.preventDefault();
-                            isResizing = true;
-                            startX = evt.clientX;
-                            startY = evt.clientY;
-                            startWidth = parseInt(window.getComputedStyle(thisImage).width, 10);
-                            startHeight = parseInt(window.getComputedStyle(thisImage).height, 10);
-
-                            document.addEventListener('mousemove', doDrag);
-                            document.addEventListener('mouseup', stopDrag);
-                        });
-
-                        function doDrag(evt) {
-                            if (!isResizing) return;
-                            const dx = evt.clientX - startX;
-                            const newWidth = startWidth + dx;
-                            const newHeight = newWidth * aspectRatio;
-
-                            if (newWidth > 20 && newHeight > 20) {
-                                thisImage.style.width = newWidth + 'px';
-                                thisImage.style.height = newHeight + 'px';
-                            }
-                        }
-
-                        function stopDrag() {
-                            isResizing = false;
-                            document.removeEventListener('mousemove', doDrag);
-                            document.removeEventListener('mouseup', stopDrag);
-                            textarea.value = editorDiv.innerHTML;
-                        }
-                        
-                        textarea.value = editorDiv.innerHTML;
-                    };
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Sync editor to original textarea
-        editorDiv.addEventListener('input', () => {
-            textarea.value = editorDiv.innerHTML;
-        });
-
-        // ---------------------------------------------------
-        // Toggle between code view and WYSIWYG
-        // ---------------------------------------------------
-        let isCodeView = false;
-        const toggleCodeViewBtn = toolbar.querySelector('#toggleCodeView');
-
-        toggleCodeViewBtn.addEventListener('click', () => {
-            if (!isCodeView) {
-                // ------------------------------------------
-                // Switching from WYSIWYG to HTML code view
-                // ------------------------------------------
-                // 1) Put current WYSIWYG HTML into code textarea
-                codeTextarea.value = editorDiv.innerHTML;
-
-                // 2) Hide the WYSIWYG editor
-                editorDiv.style.display = 'none';
-
-                // 3) Show the code editor
-                codeTextarea.style.display = 'block';
-                codeTextarea.focus();
-
-                // 4) Update button text
-                toggleCodeViewBtn.textContent = 'WYSIWYG';
-
-            } else {
-                // ------------------------------------------
-                // Switching from HTML code view back to WYSIWYG
-                // ------------------------------------------
-                // 1) Apply changes to WYSIWYG
-                editorDiv.innerHTML = codeTextarea.value;
-
-                // 2) Hide the code textarea
-                codeTextarea.style.display = 'none';
-
-                // 3) Show the WYSIWYG editor
-                editorDiv.style.display = 'block';
-                editorDiv.focus();
-
-                // 4) Update button text
-                toggleCodeViewBtn.textContent = 'HTML';
-
-                // 5) Sync to hidden <textarea>
-                textarea.value = editorDiv.innerHTML;
+              if (newWidth > 20 && newHeight > 20) {
+                thisImage.style.width = newWidth + 'px';
+                thisImage.style.height = newHeight + 'px';
+              }
             }
 
-            isCodeView = !isCodeView;
-        });
-    }
+            function stopDrag() {
+              isResizing = false;
+              document.removeEventListener('mousemove', doDrag);
+              document.removeEventListener('mouseup', stopDrag);
+              textarea.value = editorDiv.innerHTML;
+            }
+            
+            textarea.value = editorDiv.innerHTML;
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Sync editor to original textarea
+    editorDiv.addEventListener('input', () => {
+      textarea.value = editorDiv.innerHTML;
+    });
+
+    // ---------------------------------------------------
+    // Toggle between code view and WYSIWYG
+    // ---------------------------------------------------
+    let isCodeView = false;
+    const toggleCodeViewBtn = toolbar.querySelector('#toggleCodeView');
+
+    toggleCodeViewBtn.addEventListener('click', () => {
+      if (!isCodeView) {
+        // Switching from WYSIWYG to HTML code view
+        codeTextarea.value = editorDiv.innerHTML;
+        editorDiv.style.display = 'none';
+        codeTextarea.style.display = 'block';
+        codeTextarea.focus();
+        toggleCodeViewBtn.textContent = 'WYSIWYG';
+      } else {
+        // Switching back to WYSIWYG view
+        editorDiv.innerHTML = codeTextarea.value;
+        codeTextarea.style.display = 'none';
+        editorDiv.style.display = 'block';
+        editorDiv.focus();
+        toggleCodeViewBtn.textContent = 'HTML';
+        textarea.value = editorDiv.innerHTML;
+      }
+      isCodeView = !isCodeView;
+    });
+  }
 };
 
